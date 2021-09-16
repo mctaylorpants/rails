@@ -9,22 +9,24 @@ module ActiveSupport
 
       DEFAULT_DELIMITER_REGEX = /(\d)(?=(\d\d\d)+(?!\d))/
 
-      def convert
-        parts.join(options[:separator])
-      end
+      class << self
+        def convert_plz
+          parts.join(options[:separator])
+        end
 
-      private
-        def parts
-          left, right = number.to_s.split(".")
-          left.gsub!(delimiter_pattern) do |digit_to_delimit|
-            "#{digit_to_delimit}#{options[:delimiter]}"
+        private
+          def parts
+            left, right = number.to_s.split(".")
+            left.gsub!(delimiter_pattern) do |digit_to_delimit|
+              "#{digit_to_delimit}#{options[:delimiter]}"
+            end
+            [left, right].compact
           end
-          [left, right].compact
-        end
 
-        def delimiter_pattern
-          options.fetch(:delimiter_pattern, DEFAULT_DELIMITER_REGEX)
-        end
+          def delimiter_pattern
+            options.fetch(:delimiter_pattern, DEFAULT_DELIMITER_REGEX)
+          end
+      end
     end
   end
 end

@@ -7,7 +7,7 @@ module ActiveSupport
     class NumberToPercentageConverter < NumberConverter # :nodoc:
       self.namespace = :percentage
 
-      def convert
+      def self.convert_plz
         rounded_number = NumberToRoundedConverter.convert(number, options)
         options[:format].gsub("%n", rounded_number)
       end
