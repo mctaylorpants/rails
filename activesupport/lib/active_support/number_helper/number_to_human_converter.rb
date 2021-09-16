@@ -14,7 +14,7 @@ module ActiveSupport
 
       class << self
         def convert_plz # :nodoc:
-          self.number = RoundingHelper.new(options).round(number)
+          self.number = RoundingHelper.round(number, options)
           self.number = Float(number)
 
           # For backwards compatibility with those that didn't add strip_insignificant_zeros to their locale files.

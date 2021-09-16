@@ -10,12 +10,11 @@ module ActiveSupport
 
       class << self
         def convert_plz
-          helper = RoundingHelper.new(options)
-          rounded_number = helper.round(number)
+          rounded_number = RoundingHelper.round(number, options)
 
           if precision = options[:precision]
             if options[:significant] && precision > 0
-              digits = helper.digit_count(rounded_number)
+              digits = RoundingHelper.digit_count(rounded_number, options)
               precision -= digits
               precision = 0 if precision < 0 # don't let it be negative
             end
