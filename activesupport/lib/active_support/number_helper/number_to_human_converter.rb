@@ -13,8 +13,8 @@ module ActiveSupport
       self.validate_float = true
 
       def convert # :nodoc:
-        @number = RoundingHelper.new(options).round(number)
-        @number = Float(number)
+        self.number = RoundingHelper.new(options).round(number)
+        self.number = Float(number)
 
         # For backwards compatibility with those that didn't add strip_insignificant_zeros to their locale files.
         unless options.key?(:strip_insignificant_zeros)
@@ -23,7 +23,7 @@ module ActiveSupport
 
         units = opts[:units]
         exponent = calculate_exponent(units)
-        @number = number / (10**exponent)
+        self.number = number / (10**exponent)
 
         rounded_number = NumberToRoundedConverter.convert(number, options)
         unit = determine_unit(units, exponent)

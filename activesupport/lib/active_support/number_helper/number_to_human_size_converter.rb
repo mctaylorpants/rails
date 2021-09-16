@@ -11,7 +11,7 @@ module ActiveSupport
       self.validate_float = true
 
       def convert
-        @number = Float(number)
+        self.number = Float(number)
 
         # For backwards compatibility with those that didn't add strip_insignificant_zeros to their locale files.
         unless options.key?(:strip_insignificant_zeros)

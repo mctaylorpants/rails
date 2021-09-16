@@ -5,6 +5,7 @@ require "active_support/core_ext/object/blank"
 require "active_support/core_ext/hash/keys"
 require "active_support/i18n"
 require "active_support/core_ext/class/attribute"
+require "active_support/core_ext/module/attribute_accessors_per_thread"
 
 module ActiveSupport
   module NumberHelper
@@ -15,7 +16,7 @@ module ActiveSupport
       # Does the object need a number that is a valid float?
       class_attribute :validate_float
 
-      attr_reader :number, :opts
+      thread_mattr_accessor :number, :opts
 
       DEFAULTS = {
         # Used in number_to_delimited
@@ -121,8 +122,8 @@ module ActiveSupport
       end
 
       def initialize(number, options)
-        @number = number
-        @opts   = options.symbolize_keys
+        self.number = number
+        self.opts   = options.symbolize_keys
       end
 
       def execute
